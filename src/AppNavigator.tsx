@@ -31,7 +31,6 @@ import { NetworkConfig } from 'screens/Settings/NetworkConfig';
 import { NetworkConfigDetail } from 'screens/Settings/NetworkConfigDetail';
 import { ConfigureToken } from 'screens/Tokens/ConfigureToken';
 import { ImportToken } from 'screens/ImportToken/ImportToken';
-import ImportNft from 'screens/ImportToken/ImportNft';
 import { WebViewDebugger } from 'screens/WebViewDebugger';
 import SigningScreen from 'screens/Signing/SigningScreen';
 import { LoadingScreen } from 'screens/LoadingScreen';
@@ -53,10 +52,9 @@ import { useSelector } from 'react-redux';
 import { RootState } from 'stores/index';
 import { AddProvider } from 'screens/AddProvider';
 import TransactionScreen from 'screens/Transaction/TransactionScreen';
-import SendNFT from 'screens/Transaction/NFT';
 import changeNavigationBarColor from 'react-native-navigation-bar-color';
 import { Keyboard, Platform, StatusBar } from 'react-native';
-import { useSubWalletTheme } from 'hooks/useSubWalletTheme';
+import { useEC3Theme } from 'hooks/useEC3Theme';
 import { Home } from 'screens/Home';
 import { deviceWidth } from 'constants/index';
 import { createDrawerNavigator, DrawerContentComponentProps } from '@react-navigation/drawer';
@@ -65,9 +63,6 @@ import { WrapperParamList } from 'routes/wrapper';
 import { ManageAddressBook } from 'screens/Settings/AddressBook';
 import { BuyToken } from 'screens/Home/Crypto/BuyToken';
 import useCheckEmptyAccounts from 'hooks/useCheckEmptyAccounts';
-import { ConnectionList } from 'screens/Settings/WalletConnect/ConnectionList';
-import { ConnectWalletConnect } from 'screens/Settings/WalletConnect/ConnectWalletConnect';
-import { ConnectionDetail } from 'screens/Settings/WalletConnect/ConnectionDetail';
 import useAppLock from 'hooks/useAppLock';
 import { LockScreen } from 'screens/LockScreen';
 import { STATUS_BAR_LIGHT_CONTENT } from 'styles/sharedStyles';
@@ -133,14 +128,11 @@ const HistoryScreen = (props: JSX.IntrinsicAttributes) => {
   return withPageWrapper(History as ComponentType, ['transactionHistory'])(props);
 };
 
-const ConnectionListScreen = (props: JSX.IntrinsicAttributes) => {
-  return withPageWrapper(ConnectionList as ComponentType, ['walletConnect'])(props);
-};
 
 const AppNavigator = ({ isAppReady }: Props) => {
   const isDarkMode = true;
   const theme = isDarkMode ? THEME_PRESET.dark : THEME_PRESET.light;
-  const appTheme = useSubWalletTheme().swThemes;
+  const appTheme = useEC3Theme().swThemes;
   const navigationRef = useNavigationContainerRef<RootStackParamList>();
   const Stack = createNativeStackNavigator<RootStackParamList>();
   const [currentRoute, setCurrentRoute] = useState<RootRouteProps | undefined>(undefined);
@@ -247,7 +239,6 @@ const AppNavigator = ({ isAppReady }: Props) => {
                 <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
                 <Stack.Screen name="GeneralSettings" component={GeneralSettings} />
                 <Stack.Screen name="SendFund" component={SendFund} options={{ gestureEnabled: false }} />
-                <Stack.Screen name="SendNFT" component={SendNFT} options={{ gestureEnabled: false }} />
                 <Stack.Screen name="BrowserSearch" component={BrowserSearch} />
                 <Stack.Screen name="BrowserTabsManager" component={BrowserTabsManager} />
                 <Stack.Screen name="BrowserListByTabview" component={BrowserListByTabview} />
@@ -257,9 +248,6 @@ const AppNavigator = ({ isAppReady }: Props) => {
               <Stack.Group screenOptions={{ headerShown: false, animation: 'slide_from_right' }}>
                 <Stack.Screen name="History" component={HistoryScreen} />
                 <Stack.Screen name="NetworksSetting" component={NetworksSetting} />
-                <Stack.Screen name="ConnectList" component={ConnectionListScreen} />
-                <Stack.Screen name="ConnectDetail" component={ConnectionDetail} />
-                <Stack.Screen name="ConnectWalletConnect" component={ConnectWalletConnect} />
                 <Stack.Screen
                   name="CreatePassword"
                   component={CreateMasterPassword}
@@ -307,7 +295,6 @@ const AppNavigator = ({ isAppReady }: Props) => {
                 <Stack.Screen name="NetworkConfigDetail" component={NetworkConfigDetail} />
                 <Stack.Screen name="ConfigureToken" component={ConfigureToken} />
                 <Stack.Screen name="ImportToken" component={ImportToken} options={{ gestureEnabled: false }} />
-                <Stack.Screen name="ImportNft" component={ImportNft} options={{ gestureEnabled: false }} />
                 <Stack.Screen name="WebViewDebugger" component={WebViewDebugger} />
                 <Stack.Screen name="SigningAction" component={SigningScreen} options={{ gestureEnabled: false }} />
                 <Stack.Screen name="TransactionDone" component={TransactionDone} options={{ gestureEnabled: false }} />

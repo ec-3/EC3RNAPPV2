@@ -6,7 +6,7 @@ import { ColorMap } from 'styles/color';
 import { FontMedium, FontSemiBold, sharedStyles, STATUS_BAR_LIGHT_CONTENT } from 'styles/sharedStyles';
 import i18n from 'utils/i18n/i18n';
 import Text from 'components/Text';
-import { useSubWalletTheme } from 'hooks/useSubWalletTheme';
+import { useEC3Theme } from 'hooks/useEC3Theme';
 import AccountActionButton from 'components/common/Account/AccountActionButton';
 import { AccountCreationArea } from 'components/common/Account/AccountCreationArea';
 import { SelectedActionType } from 'stores/types';
@@ -77,7 +77,7 @@ export const FirstScreen = () => {
   const createAccountRef = useRef<ModalRef>();
   const importAccountRef = useRef<ModalRef>();
   const attachAccountRef = useRef<ModalRef>();
-  const theme = useSubWalletTheme().swThemes;
+  const theme = useEC3Theme().swThemes;
 
   const onPressActionButton = useCallback((action: SelectedActionType) => {
     return () => {
@@ -96,12 +96,12 @@ export const FirstScreen = () => {
     };
   }, []);
 
-  const onPressTermsCondition = () => {
-    Linking.openURL('https://docs.subwallet.app/main/privacy-and-security/terms-of-service');
+  const onPressTermsCondition = () => { //TODO: 替换为ec3的协议
+    Linking.openURL('https://**/main/privacy-and-security/terms-of-service');
   };
 
   const onPressPolicy = () => {
-    Linking.openURL('https://docs.subwallet.app/main/privacy-and-security/privacy-policy');
+    Linking.openURL('https://**/main/privacy-and-security/privacy-policy');
   };
 
   const onCreate = useCallback(() => {
@@ -150,6 +150,9 @@ export const FirstScreen = () => {
               paddingTop: 20,
               alignItems: 'center',
             }}>
+            <Suspense>
+              <SVGImages.LogoGradient width={220} height={220} />
+            </Suspense>
               {/* <Text style={logoTextStyle}>Ec³</Text> */}
               <Text style={logoSubTextStyle}>{i18n.title.slogan}</Text>
           </View>

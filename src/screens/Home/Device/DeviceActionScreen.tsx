@@ -1,8 +1,5 @@
 import React, { useEffect, useMemo, useState, useRef, } from 'react';
 import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack';
-import NftCollectionList from 'screens/Home/NFT/Collection/NftCollectionList';
-import NftItemList from 'screens/Home/NFT/Item/NftItemList';
-import NftDetail from 'screens/Home/NFT/Detail/NftDetail';
 import { RootNavigationProps, RootStackParamList } from 'routes/index';
 import { EmptyList } from 'components/EmptyList';
 // import { Image } from 'phosphor-react-native';
@@ -14,7 +11,7 @@ import { ActivityIndicator, Image, Button, TouchableOpacity,Dimensions,  Alert, 
 import { useNavigation } from '@react-navigation/native';
 import { ToggleItem } from 'components/ToggleItem';
 import { SubScreenContainer } from 'components/SubScreenContainer';
-import { useSubWalletTheme } from 'hooks/useSubWalletTheme';
+import { useEC3Theme } from 'hooks/useEC3Theme';
 import { dev } from '@polkadot/types/interfaces/definitions';
 import { mmkvStore } from 'utils/storage';
 import { BLE_DEVICE_DID_ADDR_KEY, BLE_DEVICE_INIT_TIME_KEY, generateDeviceDataPrefix, generateDeviceDataConsumptionPrefix, calculateRound,
@@ -28,20 +25,8 @@ import SpinnerGap from 'assets/SpinnerGap.png'; // 替换为SpinnerGap图片的�
 
 import { useFocusEffect } from '@react-navigation/native';
 
-export type NFTStackParamList = {
-  CollectionList: undefined;
-  Collection: { collectionId: string };
-  NftDetail: { collectionId: string; nftId: string };
-};
-export type NavigationProps = NativeStackScreenProps<NFTStackParamList & RootStackParamList>;
-export type NFTNavigationProps = NavigationProps['navigation'];
-export type NFTCollectionProps = NativeStackScreenProps<NFTStackParamList, 'Collection'>;
-export type NFTDetailProps = NativeStackScreenProps<NFTStackParamList, 'NftDetail'>;
 const {width, height, scale} = Dimensions.get('window');
 
-export const renderEmptyNFT = () => {
-  return <EmptyList title={i18n.emptyScreen.nftEmptyTitle} icon={Image} message={i18n.emptyScreen.nftEmptyMessage} />;
-};
 
 function alert(text: string) {
   Alert.alert('', text, [{text: 'Confirm', onPress: () => {}}]);
@@ -106,10 +91,8 @@ export const  DeviceActionScreen = () => {
   });
 
 
-  const NFTStack = createNativeStackNavigator<NFTStackParamList>();
-  const navigation = useNavigation<RootNavigationProps>();
 
-  const theme = useSubWalletTheme().swThemes;
+  const theme = useEC3Theme().swThemes;
   
   // const [myData,setMyData] = useState();
 
