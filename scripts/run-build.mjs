@@ -84,7 +84,7 @@ if (process.argv.indexOf('--android') > -1) {
 
   if (process.argv.indexOf('--release') > -1) {
     await notify('Start build upload android bundle')
-    await uploadBuild(path.resolve(process.cwd(), 'android/app/build/outputs/bundle/release/app-release.aab '), `subwallet-mobile-v${packageInfo.version}-b${packageInfo.build}-${timeLabel}.aab`)
+    await uploadBuild(path.resolve(process.cwd(), 'android/app/build/outputs/bundle/release/app-release.aab '), `ec3-mobile-v${packageInfo.version}-b${packageInfo.build}-${timeLabel}.aab`)
     await notify('Start build upload android bundle')
   }
 }
